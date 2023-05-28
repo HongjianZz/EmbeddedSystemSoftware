@@ -49,7 +49,7 @@ PLATFORM = HOST #default platform
 
 
 #Target Executable
-TARGET = C1M2
+TARGET = finalAssesssment
 
 #Objects file
 OBJS = $(SOURCES:.c=.o)
@@ -63,7 +63,7 @@ PREP = $(SOURCES:.c =.i)
 #Dependency files
 DEP = $(SOURCES:.c=.d)
 
-CFLAGS = -Wall -Werror -g -O0 -std=c99 -D$(PLATFORM) $(ARMFLAGS)
+CFLAGS = -Wall -g -O0 -std=c99 -D$(PLATFORM) $(ARMFLAGS) #-Werror 
 CPPFLAGs = -E
 DEPFLAGS = -MMD -MP
 
@@ -89,6 +89,12 @@ ifeq ($(PLATFORM),MSP432)
 	SIZE = arm-none-eabi-size 
 	ARMFLAGS = -mcpu=$(CPU) -mthumb --specs=$(SPECS) -march=$(ARCH) -mfloat-abi=$(FLOAT-ABI) -mfpu=$(FPU)
 endif
+
+# IF VERBOSE 
+ifeq ($(VERBOSE), true)
+	CFLAGS += -DVERBOSE
+endif
+
 
 %.o : %.c 
 	$(CC) $(INCLUDES) -c $< $(CFLAGS) -o $@
@@ -127,7 +133,7 @@ build: $(TARGET).out
 .PHONY: clean
 clean:
 	echo "Cleaning all projects"
-	rm -rf *out *.asm *o *i *d *out *map
+	rm -rf ${SRC_DIR}*{.o,.out,.map,.asm,.i} $(TARGET).out
 	ls
 	sleep 2
 	clear

@@ -28,7 +28,7 @@
 #define SIZE (40)
 
 
-
+/*
 void main() {
 
   unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
@@ -37,13 +37,14 @@ void main() {
                               201,   6,  12,  60,   8,   2,   5,  67,
                                 7,  87, 250, 230,  99,   3, 100,  90};
 
-  /* Other Variable Declarations Go Here */
-  /* Statistics and Printing Functions Go Here */
+
   char *charPtr = test;
   int Size = SIZE;
   print_array(charPtr,Size);
   print_statistics(charPtr,Size);
 }
+*/
+
 
 /* Add other Implementation File Code Here */
 
@@ -61,7 +62,6 @@ void print_statistics(unsigned char* charPtr, int size){
   printf("The mean is %.2f\n", mean);
   printf("The Max is %d\n",max);
   printf("The Min is %d\n",min);
-  
 
 }
 unsigned char find_maximum(unsigned char *sortedArray, int size){

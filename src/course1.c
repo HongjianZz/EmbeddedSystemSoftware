@@ -22,6 +22,11 @@
 #include "platform.h"
 #include "memory.h"
 #include "stats.h"
+#include "data.h"
+
+#define BASE_16 16
+#define BASE_10 10
+#define BASE_2 2
 
 int8_t test_data1() {
   uint8_t * ptr;

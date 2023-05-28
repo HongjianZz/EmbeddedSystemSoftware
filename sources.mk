@@ -11,27 +11,35 @@
 #*****************************************************************************
 
 # Add your Source files to this variable
+SRC_DIR = ./src/
+INC_DIR = ./include/
 
 ifeq ($(PLATFORM),HOST)
 
-	SOURCES = main.c \
-			  memory.c
+	SOURCES = $(SRC_DIR)main.c \
+			  $(SRC_DIR)memory.c\
+			  $(SRC_DIR)stats.c\
+			  $(SRC_DIR)data.c\
+			  $(SRC_DIR)course1.c
 	
 	# Add your include paths to this variable
 
-	INCLUDES = -I../include/common
+	INCLUDES = -I $(INC_DIR)common
 
 
 else
-	SOURCES = main.c \
-			memory.c \
-			interrupts_msp432p401r_gcc.c \
-			startup_msp432p401r_gcc.c \
-			system_msp432p401r.c
+	SOURCES = $(SRC_DIR)main.c \
+			  $(SRC_DIR)memory.c\
+			  $(SRC_DIR)stats.c\
+			  $(SRC_DIR)data.c\
+			  $(SRC_DIR)course1.c
+			$(SRC_DIR)interrupts_msp432p401r_gcc.c \
+			$(SRC_DIR)startup_msp432p401r_gcc.c \
+			$(SRC_DIR)system_msp432p401r.c
 			
-	INCLUDES = -I../include/common \
-			   -I../include/CMSIS \
-			   -I../include/msp432
+	INCLUDES = -I $(INC_DIR)common \
+			   -I $(INC_DIR)CMSIS \
+			   -I $(INC_DIR)msp432
 endif
 
 

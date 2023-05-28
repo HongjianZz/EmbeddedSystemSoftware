@@ -1,7 +1,7 @@
 #include"data.h"
-
+#include <stddef.h>
+#include <stdio.h>
 uint8_t my_itoa(int32_t data, uint8_t *ptr, uint32_t base){
-    int32_t temp = data;
     uint8_t length = 1;
     //handle signed value
     if(data<0){
@@ -36,7 +36,7 @@ int32_t my_atoi(uint8_t * ptr, uint8_t digits, uint32_t base){
 
     int32_t output = 0;
     
-    for(int x = 0; ix<digits; ix++){
+    for(int ix = 0; ix<digits; ix++){
         uint8_t value = *ptr;
         int32_t digit;
 
@@ -50,9 +50,6 @@ int32_t my_atoi(uint8_t * ptr, uint8_t digits, uint32_t base){
 
         output = output*base + digit;
         ptr ++;
-
-
-
     }
     return output;
 
