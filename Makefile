@@ -67,13 +67,9 @@ CFLAGS = -Wall -g -O0 -std=c99 -D$(PLATFORM) $(ARMFLAGS) #-Werror
 CPPFLAGs = -E
 DEPFLAGS = -MMD -MP
 
-ifeq ($(PLATFORM),HOST)
-	CC = gcc
-	LD = ld
-	SIZE = size
-	LDFLAGS = -Wl,-Map=$(TARGET).map
-	OBJDUMP = objdump
-endif
+VERBOSE = true
+COURSE1 = true
+
 
 ifeq ($(PLATFORM),MSP432)
 	CC = arm-none-eabi-gcc
@@ -88,6 +84,13 @@ ifeq ($(PLATFORM),MSP432)
 	OBJDUMP = arm-none-eabi-objdump
 	SIZE = arm-none-eabi-size 
 	ARMFLAGS = -mcpu=$(CPU) -mthumb --specs=$(SPECS) -march=$(ARCH) -mfloat-abi=$(FLOAT-ABI) -mfpu=$(FPU)
+else
+	CC = gcc
+	LD = ld
+	SIZE = size
+	LDFLAGS = -Wl,-Map=$(TARGET).map
+	OBJDUMP = objdump
+
 endif
 
 # IF VERBOSE 
@@ -95,6 +98,9 @@ ifeq ($(VERBOSE), true)
 	CFLAGS += -DVERBOSE
 endif
 
+ifeq ($(COURSE1), true)
+	CFLAGS += -DCOURSE1
+endif
 
 %.o : %.c 
 	$(CC) $(INCLUDES) -c $< $(CFLAGS) -o $@
@@ -122,7 +128,7 @@ compile-all: $(OBJS)
 
 
 #Build 
-#create the C1M2.out file
+#create the finalAssessment.out file
 .PHONY: build
 build: $(TARGET).out
 
@@ -133,7 +139,7 @@ build: $(TARGET).out
 .PHONY: clean
 clean:
 	echo "Cleaning all projects"
-	rm -rf ${SRC_DIR}*{.o,.out,.map,.asm,.i} $(TARGET).out
+	rm -f src/*.o src/*.out src/*.map src/*.asm src/*.i src/*.d $(TARGET).out $(TARGET).map
 	ls
 	sleep 2
 	clear

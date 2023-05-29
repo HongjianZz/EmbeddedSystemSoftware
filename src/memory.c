@@ -50,12 +50,24 @@ void clear_all(char * ptr, unsigned int size){
 }
 
 uint8_t* my_memmove(uint8_t *src, uint8_t*dst, size_t length){
-  for(int ix=0; ix<length; ix++){
-    *dst = *src;
-    src++;
-    dst++;
-  }
-  return dst;
+    uint8_t *d = dst;
+    uint8_t *s = src;
+
+    // If the destination memory address is less than the source address
+    if (d < src){
+        while (length--){
+            *d++= *s++;
+        }
+    }
+    // When destination memory address is greater than source address
+    else{
+        uint8_t *lasts = s + (length-1);    // gets the address of the last source byte
+        uint8_t *lastd = d + (length-1);    // gets the address of the last destination byte
+        while (length--){
+            *lastd-- = *lasts--;
+        }
+    }
+    return dst;
 }
 
 uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length){
@@ -84,6 +96,7 @@ uint8_t * my_memzero(uint8_t * src, size_t length){
   return src;
 }
 
+/*
 uint8_t * my_reverse(uint8_t * src, size_t length){
   uint8_t* tempPtr = src;
   uint8_t tempValue;
@@ -94,7 +107,27 @@ uint8_t * my_reverse(uint8_t * src, size_t length){
     *(tempPtr+(length-1-ix)) = tempValue;
     tempPtr++;
   }
+  free(tempPtr);
   return src;
+}
+*/
+uint8_t * my_reverse(uint8_t * src, size_t length){
+    // printf("Reversing the order of %d bytes located between 0x%u-0x%u\n", length, src, src+length-1);
+    uint8_t *temp;
+    temp = (uint8_t*)malloc(length*sizeof(uint8_t)); // Temp memory to hold existing content
+    if(! temp){
+        printf("ERROR: allocating dynamic memory for my_reverse function call\n");
+    }
+    uint8_t *lastTemp = temp+length; // Pointer to last position in temp memory
+    for(int i=0; i<length; i++){
+        *(temp+i)=*(src+i);
+    }
+    // printf("Temp value: %s\n", temp);
+    while(length--){
+        *(src+length)= *(lastTemp-length-1);
+    }
+    free(temp);
+    return src;
 }
 
 int32_t * reserve_words(size_t length){

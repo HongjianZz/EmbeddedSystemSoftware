@@ -325,7 +325,7 @@ int8_t test_reverse()
   return ret;
 }
 
-void course1(void) 
+void course1() 
 {
   uint8_t i;
   int8_t failed = 0;
@@ -333,6 +333,7 @@ void course1(void)
 
   results[0] = test_data1();
   results[1] = test_data2();
+  
   results[2] = test_memmove1();
   results[3] = test_memmove2();
   results[4] = test_memmove3();
@@ -350,4 +351,8 @@ void course1(void)
   PRINTF("  PASSED: %d / %d\n", (TESTCOUNT - failed), TESTCOUNT);
   PRINTF("  FAILED: %d / %d\n", failed, TESTCOUNT);
   PRINTF("--------------------------------\n");
+  
+  for(int ix=0; ix<TESTCOUNT; ix++){
+    printf("\nTEST:%d status:%d", ix, results[ix]);
+  }
 }

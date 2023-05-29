@@ -14,20 +14,7 @@
 SRC_DIR = ./src/
 INC_DIR = ./include/
 
-ifeq ($(PLATFORM),HOST)
-
-	SOURCES = $(SRC_DIR)main.c \
-			  $(SRC_DIR)memory.c\
-			  $(SRC_DIR)stats.c\
-			  $(SRC_DIR)data.c\
-			  $(SRC_DIR)course1.c
-	
-	# Add your include paths to this variable
-
-	INCLUDES = -I $(INC_DIR)common
-
-
-else
+ifeq ($(PLATFORM),MSP432)
 	SOURCES = $(SRC_DIR)main.c \
 			  $(SRC_DIR)memory.c\
 			  $(SRC_DIR)stats.c\
@@ -40,6 +27,19 @@ else
 	INCLUDES = -I $(INC_DIR)common \
 			   -I $(INC_DIR)CMSIS \
 			   -I $(INC_DIR)msp432
+
+else
+
+	SOURCES = $(SRC_DIR)main.c \
+			  $(SRC_DIR)memory.c\
+			  $(SRC_DIR)stats.c\
+			  $(SRC_DIR)data.c\
+			  $(SRC_DIR)course1.c
+	
+	# Add your include paths to this variable
+
+	INCLUDES = -I $(INC_DIR)common
+
 endif
 
 
